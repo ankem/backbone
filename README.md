@@ -1,5 +1,6 @@
 # backbone
-learning backbone.js, follwoing Backbone.js Essentials
+learning backbone.js
+follwoing Backbone.js Essentials
 By: Jeremy Walker
 Publisher: Packt Publishing
 Pub. Date: May 29, 2015
