@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Learning basic java script</title>
+    <script language="JavaScript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script language="JavaScript" src="js/new.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/new.css">
+
+</head>
+<body>
+<h1>Java Script Fundamentals</h1>
+<ul>
+    <li>
+        when we create a function by default 'this' will pointing to global environment from which the function is created
+        <div class="code-container">
+        <span class="code">
+            var temp = function () {
+                alert(this);
+            };
+            temp();
+        </span>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        When we create an object with new keyword this will be set to the object that is created by new
+        <div class="code-container">
+        <span class="code">
+            var temp = new function () {
+                alert(this);
+            };
+        </span>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+</ul>
+</body>
+</html>
