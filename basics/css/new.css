@@ -3,12 +3,16 @@
     background-color: burlywood;
     border: 1px solid;
     margin: 5px;
+    position: relative;
 }
 .code{
     font-size: large;
     font-family: cursive;
+    width: 80%;
 }
 .execute{
     font-size: larger;
-    float: right;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Learning basic java script</title>
+    <script language="JavaScript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script language="JavaScript" src="js/new.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/new.css">
+
+</head>
+<body>
+<h1>Java Script Fundamentals</h1>
+<ul>
+    <li>
+        when we create a function by default 'this' will pointing to global environment from which the function is created
+        <div class="code-container">
+        <span class="code">
+            var temp = function () {
+                alert(this);
+            };
+            temp();
+        </span>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        When we create an object with new keyword 'this' reference will be set to the object that is created by new<br/>
+        javascript creates a brand new object for us<br/>
+        javascript sets the 'this' method inside initialization function to the newly create object<br/>
+
+        <div class="code-container">
+        <span class="code">
+            var temp = new function () {
+                alert(this);
+            };
+        </span>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        javascript ignores return value of the initialization function and then returns the created object
+        <div class="code-container">
+        <span class="code">
+            var temp = new function () {
+                this.someVariable='testing';
+                return true;
+            };
+            alert(typeof temp);
+
+        </span>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+    <li>
+        Calling a method on the object will set the 'this' ref inside the method with the object from which the method is called.
+        <div class="code-container">
+        <span class="code">
+            var temp =  {
+                sampleMethod: function () {
+                    alert(this);
+                }
+
+            }
+            temp.sampleMethod();
+
+        </span>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+    <li>
+        javascript has function types
+        <div class="code-container">
+        <span class="code">
+            var temp =  function() { };
+            alert(typeof temp);
+
+        </span>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+    <li>
+        When an object is created with 'new' keyword the _proto_ hidden variable is populated with prototype of the initializing function.
+        <div class="code-container">
+        <span class="code">
+            var Temp =  function() {
+
+            };
+            Temp.prototype.someMethod = function () {};
+            var temp = new Temp();
+            alert(typeof Temp);
+            alert (typeof temp);
+        </span>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+</ul>
+</body>
+</html>

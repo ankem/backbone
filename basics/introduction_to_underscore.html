@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Learning basic java script</title>
+    <script language="JavaScript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://underscorejs.org/underscore.js"></script>
+    <script language="JavaScript" src="http://backbonejs.org/backbone-min.js"></script>
+    <script language="JavaScript" src="js/new.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/new.css">
+
+</head>
+<body>
+<h1>Introduction To Underscore library</h1>
+<ul>
+    <li>
+        Setting this parameter is bit ugly and underscore library is going to make it easy for us. The this parameter will be set to window if you are calling window.setTimeout
+        and in case of jquery ajax event listeners it will be set to the element that triggered the event and in case of jquery ajax calls this paramter will be set to the request
+        <div class="code-container">
+            <div class="code">
+                var exampleObject = {};
+                exampleObject.alertThis = function () {
+                    alert(this);
+                };
+                window.setTimeout(exampleObject.alertThis);
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        Here is boilerplate code we have to do to set 'this' to something else when we call window.setTimeout, which is ugly
+        <div class="code-container">
+            <div class="code">
+                var exampleObject = {};
+                exampleObject.alertThisBuilder = function () {
+                var correctThis= this;
+                var alertAnonymous = function () {
+                    alert(this);
+                };
+                return function () {
+                    alertAnonymous.apply(correctThis);
+                }
+                };
+                window.setTimeout(exampleObject.alertThisBuilder());
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        Lets solve the same problem mentioned above with underscore. underscore has two methods called 'bind' and 'bindAll' which will help us do the same thing as above but with
+        out need of all that ugly code.
+        <div class="code-container">
+            <div class="code">
+                var exampleObject = {};
+                exampleObject.alertThis = function () {
+                    alert(this);
+                }
+                exampleObject.alertThis = _.bind(exampleObject.alertThis, exampleObject);
+                window.setTimeout(exampleObject.alertThis);
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        Underscode has three useful methods namely each, map and reduce which can help us iterating over arrays. Lest examing each first
+        <div class="code-container">
+            <div class="code">
+                var exampleObject = ['demo1','demo2', 'demo3'];
+                _.each(exampleObject, function (item, index) {
+                    alert(item +' is at index '+index);
+                });
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        underscore's map method can be used to convert an array of values to an array of values of different type. Lets convert any array of string to array of numbers using map
+        method
+        <div class="code-container">
+            <div class="code">
+                var exampleObject = ["1","2", "3"];
+                var numberArray = _.map(exampleObject, function (item, index) {
+                return parseInt(item,10);
+                });
+                alert(numberArray);
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        underscore's reduce method can be used to convert an array of values to a single value. For exaple lets say you want to add all the numbers in array.
+        <div class="code-container">
+            <div class="code">
+                var exampleObject = [1,2,3];
+                var total = _.reduce(exampleObject, function (total, actualNumber) {
+                return total+actualNumber;
+                });
+                alert(total);
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        underscore's extend method can be used to copy properties from object to other, the first argement is the object that needs the copy and the rest of the arguments are
+        objects whoes properties need to be copied into the first argument
+        <div class="code-container">
+            <div class="code">
+                var object1 = {property1: 'value1'};
+                var object2 = {property2: 'value2'};
+                var copiedObject = _.extend({}, object1, object2);
+                alert(copiedObject.property1);
+                alert(copiedObject.property2);
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        underscore's defaults method is similar to extend method except that it doesn't copy the properties that are already present in the main object.
+        <div class="code-container">
+            <div class="code">
+                var object1 = {property1: 'value1'};
+                var object2 = {property2: 'value2'};
+                var copiedObject = _.defaults({property1: 'originalValue'}, object1, object2);
+                alert(copiedObject.property1);
+                alert(copiedObject.property2);
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        underscore's pluck method is helpful in extracting a property from an array of object.
+        <div class="code-container">
+            <div class="code">
+                var object1 = {title: 'title1',property1: 'value1'};
+                var object2 = {title: 'title2',property2: 'value1'};
+                var object3 = {title: 'title3',property3: 'value1'};
+                var arrayOfObjects = [object1,object2, object3];
+                var pluckedValues=_.pluck(arrayOfObjects, 'title');
+                alert(pluckedValues);
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        underscore's invoke method is same as pluck method except that instead of extracting a property invoke method will take a method name and executes the method and
+        aggregates the returns of the exectued method.
+        <div class="code-container">
+            <div class="code">
+                var Book = Backbone.Model.extend ({
+                    getAuthor: function () {
+                        return this.get('author');
+                    }
+                });
+                var books = [new Book({author:'test1'}), new Book({author:'test2'}), new Book({author:'test3'})];
+                var result = _.invoke(books,'getAuthor');
+                alert(result);
+
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+
+</ul>
+</body>
+</html>

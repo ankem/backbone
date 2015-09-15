@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Learning basic java script</title>
+    <script language="JavaScript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://underscorejs.org/underscore.js"></script>
+    <script language="JavaScript" src="http://backbonejs.org/backbone-min.js"></script>
+    <script language="JavaScript" src="js/new.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/new.css">
+
+</head>
+<body>
+<h1>Backbone Class Extension</h1>
+<ul>
+    <li>
+        We can use backbones extend method to extend from a base calss it sets the protype to the base class
+        <div class="code-container">
+        <div class="code">
+            var Book = Backbone.Model.extend();
+            var bookObject = new Book();
+            alert(bookObject instanceof Backbone.Model);
+            alert(Book.prototype instanceof Backbone.Model);
+            bookObject.destroy();
+        </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        Backbone extend method takes a properties object which will initialize the subclass with the properties
+        <div class="code-container">
+            <div class="code">
+                var Book = Backbone.Model.extend({
+                    currentPage: 1,
+                    nextPage: function () {
+                    this.currentPage +=1;
+                    }
+                });
+                var bookObject = new Book();
+                alert(bookObject.currentPage);
+                bookObject.nextPage();
+                alert(bookObject.currentPage);
+                bookObject.destroy();
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        We can pass class level properties as second argument to extend method and they will be accessible
+        through Class variable. static fields cannot be accessed from object instance.
+        <div class="code-container">
+            <div class="code">
+                var Book = Backbone.Model.extend({},{
+                someStaticMethod: function () {
+                alert('static method');
+                }
+                });
+                Book.someStaticMethod();
+                var bookObject = new Book();
+                alert(typeof bookObject.someStaticMethod);
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        we can override method defined in super class by defining it subsclass, lets override destroy method from Model class
+        <div class="code-container">
+            <div class="code">
+                var Book = Backbone.Model.extend({
+                    noOfPages: 100,
+                    destroy: function(pages){
+                        this.noOfPages -= pages;
+                        alert('overridden destroy method from parent class');
+                    },
+                    totalPages: function () {
+                        alert('noOfPages' + this.noOfPages);
+                    }
+
+                });
+                var bookObject = new Book();
+                bookObject.destroy(10);
+                bookObject.totalPages();
+                alert(bookObject);
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+
+    <li>
+        How to call parent method.
+        <div class="code-container">
+            <div class="code">
+                var Book = Backbone.Model.extend({
+                noOfPages: 100,
+                destroy: function(pages){
+                this.noOfPages -= pages;
+                alert('overridden destroy method from parent class');
+                },
+                totalPages: function () {
+                alert('noOfPages' + this.noOfPages);
+                }
+
+                });
+                var bookObject = new Book();
+                Backbone.Model.prototype.destroy.apply(bookObject,arguments);
+                bookObject.totalPages();
+
+            </div>
+            <button class="execute">execute code</button>
+        </div>
+    </li>
+</ul>
+</body>
+</html>
